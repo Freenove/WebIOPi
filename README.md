@@ -1,2 +1,6 @@
 # WebIOPi
-WebIOPi-0.7.1 for Raspberry B+, Pi2, and Pi3
+> This project forked from https://sourceforge.net/projects/webiopi/
+
+## Usage 
+
+$ wget https://github.com/Freenove/WebIOPi/archive/master.zip -O WebIOPi.zip
