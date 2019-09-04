@@ -33,14 +33,14 @@ def stop(signum=0, frame=None):
             task.stop()
                 
 
-def runLoop(func=None, async=False):
+def runLoop(func=None, _async=False):
     global RUNNING
     RUNNING = True
     signal.signal(signal.SIGINT, stop)
     signal.signal(signal.SIGTERM, stop)
 
     if func != None:
-        if async:
+        if _async:
             TASKS.append(Task(func, True))
         else:
             while RUNNING:
