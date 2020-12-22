@@ -14,3 +14,6 @@ $ sudo ./setup.sh
 $ sudo webiopi -d -c /etc/webiopi/config
 
 Then access webiopi through browser.
+
+## References
+https://github.com/doublebind/raspi
