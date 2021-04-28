@@ -212,9 +212,17 @@ diff -ur WebIOPi-0.7.1/python/webiopi/utils/version.py WebIOPi-Pi2/python/webiop
      pass
  
 --- WebIOPi-0.7.1/python/webiopi/protocols/http.py	2014-02-22 07:31:18.000000000 +0900
-+++ WebIOPi-Pi2/python/webiopi/protocols/http.py	2017-08-18 16:53:56.000000000 +0900
-@@ -194,13 +194,23 @@
-         
++++ WebIOPi-Pi2/python/webiopi/protocols/http.py	2021-04-28 17:36:57.605437137 +0200
+@@ -93,6 +93,7 @@
+
+     def stop(self):
+         self.running = False
++        self.shutdown()
+         self.server_close()
+
+ class HTTPHandler(BaseHTTPServer.BaseHTTPRequestHandler):
+@@ -194,13 +195,23 @@
+
          (contentType, encoding) = mime.guess_type(path)
          f = codecs.open(path, encoding=encoding)
 -        data = f.read()
