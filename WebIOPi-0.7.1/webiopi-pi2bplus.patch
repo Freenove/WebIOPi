@@ -1,7 +1,15 @@
 diff -ur WebIOPi-0.7.1/htdocs/webiopi.js WebIOPi-Pi2/htdocs/webiopi.js
 --- WebIOPi-0.7.1/htdocs/webiopi.js	2014-02-24 01:37:07.000000000 +0900
-+++ WebIOPi-Pi2/htdocs/webiopi.js	2015-06-26 15:53:13.812134121 +0900
-@@ -73,7 +73,7 @@
++++ WebIOPi-Pi2/htdocs/webiopi.js	2021-05-01 15:51:24.003442684 +0200
+@@ -14,7 +14,6 @@
+    limitations under the License.
+ */
+ 
+-var _gaq = _gaq || [];
+ var _webiopi;
+ 
+ function w() {
+@@ -73,7 +72,7 @@
  	this.readyCallback = null;
  	this.context = "/";
  	this.GPIO = Array(54);
@@ -10,7 +18,32 @@ diff -ur WebIOPi-0.7.1/htdocs/webiopi.js WebIOPi-Pi2/htdocs/webiopi.js
  
  	this.TYPE = {
  			DNC: {value: 0, style: "DNC", label: "--"},
-@@ -577,7 +577,7 @@
+@@ -136,16 +135,6 @@
+ 	}
+ */
+ 
+-	// GA
+-	_gaq.push(['_setAccount', 'UA-33979593-2']);
+-	_gaq.push(['_trackPageview']);
+-		
+-	var ga = document.createElement('script');
+-	ga.type = 'text/javascript';
+-	ga.async = false;
+-	ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+-	head.appendChild(ga);
+-	
+ 	var style = document.createElement('link');
+ 	style.rel = "stylesheet";
+ 	style.type = 'text/css';
+@@ -305,7 +294,6 @@
+ 	var version;
+ 	
+ 	$.get(w().context + "version", function(data) {
+-		_gaq.push(['_trackEvent', 'version', data]);
+ //		version = data.split("/")[2];
+ //
+ //		$.get("http://webiopi.trouch.com/version.php", function(data) {
+@@ -577,7 +565,7 @@
  RPiHeader.prototype.createTable = function (containerId) {
  	var table = $("<table>");
  	table.attr("id", "RPiHeader")
@@ -214,15 +247,15 @@ diff -ur WebIOPi-0.7.1/python/webiopi/utils/version.py WebIOPi-Pi2/python/webiop
 --- WebIOPi-0.7.1/python/webiopi/protocols/http.py	2014-02-22 07:31:18.000000000 +0900
 +++ WebIOPi-Pi2/python/webiopi/protocols/http.py	2021-04-28 17:36:57.605437137 +0200
 @@ -93,6 +93,7 @@
-
+ 
      def stop(self):
          self.running = False
 +        self.shutdown()
          self.server_close()
-
+ 
  class HTTPHandler(BaseHTTPServer.BaseHTTPRequestHandler):
 @@ -194,13 +195,23 @@
-
+         
          (contentType, encoding) = mime.guess_type(path)
          f = codecs.open(path, encoding=encoding)
 -        data = f.read()
