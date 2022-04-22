@@ -54,7 +54,7 @@ SPI_MODE_2      = (SPI_CPOL|0)
 SPI_MODE_3      = (SPI_CPOL|SPI_CPHA)
 
 # does not work
-# SPI_CS_HIGH     = 0x04
+SPI_CS_HIGH     = 0x04
 # SPI_LSB_FIRST   = 0x08
 # SPI_3WIRE       = 0x10
 # SPI_LOOP        = 0x20
@@ -95,7 +95,8 @@ class SPI(Bus):
         if fcntl.ioctl(self.fd, SPI_IOC_RD_MODE, val8):
             raise Exception("Cannot read SPI Mode")
         self.mode = struct.unpack('B', val8)[0]
-        assert(self.mode == mode)
+        self.mode &= ~SPI_CS_HIGH
+        assert(self.mode  == mode)
 
         val8[0] = bits
         if fcntl.ioctl(self.fd, SPI_IOC_WR_BITS_PER_WORD, val8):

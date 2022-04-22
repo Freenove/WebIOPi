@@ -37,6 +37,9 @@ class PiFaceDigital():
         if not channel in range(8):
             raise ValueError("Channel %d invalid" % channel)
     
+    def close(self):
+        None
+    
     @request("GET", "digital/input/%(channel)d")
     @response("%d")
     def digitalRead(self, channel):
